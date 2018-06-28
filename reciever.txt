@@ -1,0 +1,41 @@
+void setup() 
+{
+  // put your setup code here, to run once:
+  pinMode(6,INPUT);//ultrasonic
+  pinMode(7,INPUT);//rf rx d1
+  pinMode(8,INPUT);//rf rx d2
+  pinMode(9,OUTPUT);//rly 1
+  pinMode(10,OUTPUT);// relay pi 2
+  Serial.begin(9600);
+}
+
+void loop() 
+{
+  // put your main code here, to run repeatedly:
+int ir = digitalRead(6);
+int green = digitalRead(7); //RFD1
+int red = digitalRead(8);   //RFD2
+
+if(ir == HIGH)
+{
+  digitalWrite(9,LOW);
+  digitalWrite(10, LOW);
+  Serial.print("SENDING HIGH");
+  Serial.println();
+}
+else
+{
+  Serial.print("LOW");
+  Serial.println();
+if((green == HIGH) || (green == LOW && red == LOW))
+{
+  digitalWrite(9,HIGH);
+  digitalWrite(10,LOW);
+}
+if(red == HIGH)
+{
+  digitalWrite(9,LOW);
+  digitalWrite(10,LOW);
+}
+}
+}
